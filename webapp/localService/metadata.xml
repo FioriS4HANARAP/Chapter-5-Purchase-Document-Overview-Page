@@ -1,0 +1,163 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="cds_z_purchasedocumentovp" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Z_C_PriorityVHType" sap:label="Value Help for Priority" sap:value-list="true" sap:content-version="1">
+				<Key><PropertyRef Name="Priority"/></Key><Property Name="Priority" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="PriorityText" sap:label="Priority"/><Property Name="PriorityText" Type="Edm.String" MaxLength="32" sap:label="Priority Text"/></EntityType>
+			<EntityType Name="Z_C_PurchaseDocBudgetOVPType" sap:label="OVP card for Overall Budget" sap:content-version="1">
+				<Key><PropertyRef Name="PurchaseDocument"/></Key><Property Name="PurchaseDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Purchasing Document"
+					sap:quickinfo="Purchase Document"/><Property Name="crea_date_time" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp"
+					sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)"/><Property Name="PurchasingOrganization" Type="Edm.String" MaxLength="4"/><Property Name="OverallPrice" Type="Edm.Decimal" Precision="26" Scale="4" sap:unit="PD54F86C3DEC11F83D652E181CA2A999E"/><Property Name="BudgetUtilization" Type="Edm.Decimal" Precision="27" Scale="2" sap:unit="Percentage"/><Property Name="Status" Type="Edm.String" MaxLength="1"/><Property Name="Priority" Type="Edm.String" MaxLength="1"/><Property Name="Percentage" Type="Edm.String" MaxLength="3" sap:semantics="unit-of-measure"/></EntityType>
+			<EntityType Name="Z_C_PurchaseDocsforApprovalOVPType" sap:label="Purchase orders Pending for Approval" sap:content-version="1">
+				<Key><PropertyRef Name="PurchaseDocument"/></Key><Property Name="PurchaseDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="Description" sap:label="Purchase Document"/><Property Name="Description" Type="Edm.String" MaxLength="128"/><Property Name="OverallPrice" Type="Edm.Decimal" Precision="26" Scale="4" sap:unit="P3E77F3C0ECBE0A2AB5551EED1888C20B"/><Property Name="Priority" Type="Edm.String" MaxLength="1"/><Property Name="crea_uname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/><Property Name="PriorityText" Type="Edm.String" MaxLength="32" sap:label="Priority Text"/><Property Name="Status" Type="Edm.String" MaxLength="1"/><Property Name="PurchasingOrganization" Type="Edm.String" MaxLength="4"/><Property Name="Approval" Type="Edm.String" MaxLength="20"/></EntityType>
+			<EntityType Name="Z_C_PURCHASEDOCUMENTFILTERSOVPType" sap:label="Filters for Purchasing Document OVP" sap:content-version="1">
+				<Key><PropertyRef Name="PurchaseDocument"/></Key><Property Name="PurchaseDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Purchase Document"/><Property Name="Priority" Type="Edm.String" MaxLength="1" sap:value-list="fixed-values"/><Property Name="Status" Type="Edm.String" MaxLength="1" sap:value-list="fixed-values"/></EntityType>
+			<EntityType Name="Z_C_PurchaseDocumentOVPType" sap:semantics="aggregate" sap:label="Purchasing Document Over View Page"
+				sap:content-version="1">
+				<Key><PropertyRef Name="ID"/></Key><Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PurchaseDocument" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:text="Description"
+					sap:label="Purchase Document"/><Property Name="Description" Type="Edm.String" MaxLength="128"/><Property Name="Priority" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension"/><Property Name="PriorityText" Type="Edm.String" MaxLength="32" sap:aggregation-role="dimension" sap:label="Priority Text"/><Property Name="Status" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension"/><Property Name="StatusText" Type="Edm.String" MaxLength="32" sap:aggregation-role="dimension" sap:label="Status Text"/><Property Name="TotalNumberofDocuments" Type="Edm.Decimal" Precision="9" Scale="0" sap:aggregation-role="measure"
+					sap:label="Outstanding Orders" sap:quickinfo="Number of Outstanding Maintenance Orders" sap:filterable="false"/></EntityType>
+			<EntityType Name="Z_C_PurchaseDocumentPendingOVPType" sap:label="Pending Purchase Documents item list" sap:content-version="1">
+				<Key><PropertyRef Name="PurchaseDocument"/><PropertyRef Name="PurchaseDocumentItem"/></Key><Property Name="PurchaseDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Purchase Document"/><Property Name="PurchaseDocumentItem" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="Description"/><Property Name="PurchaseDocumentDescription" Type="Edm.String" MaxLength="128"/><Property Name="Description" Type="Edm.String" MaxLength="128"/><Property Name="OverallItemPrice" Type="Edm.Decimal" Precision="26" Scale="4" sap:unit="Currency"/><Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="2" sap:unit="QuantityUnit"/><Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:semantics="unit-of-measure"/><Property Name="crea_uname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/><Property Name="crea_date_time" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp"
+					sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)"/><Property Name="Currency" Type="Edm.String" MaxLength="5" sap:semantics="currency-code"/><Property Name="Priority" Type="Edm.String" MaxLength="1"/><Property Name="Status" Type="Edm.String" MaxLength="1"/><Property Name="PriorityText" Type="Edm.String" MaxLength="32" sap:label="Priority Text"/><Property Name="StatusText" Type="Edm.String" MaxLength="32" sap:label="Status Text"/><Property Name="PurchasingOrganization" Type="Edm.String" MaxLength="4"/></EntityType>
+			<EntityType Name="Z_C_StatusVHType" sap:label="Value Help for Status" sap:value-list="true" sap:content-version="1">
+				<Key><PropertyRef Name="Status"/></Key><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="StatusText" sap:label="Status"/><Property Name="StatusText" Type="Edm.String" MaxLength="32" sap:label="Status Text"/></EntityType>
+			<EntityContainer Name="cds_z_purchasedocumentovp_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true"
+				sap:supported-formats="atom json xlsx"><EntitySet Name="Z_C_PriorityVH" EntityType="cds_z_purchasedocumentovp.Z_C_PriorityVHType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:searchable="true" sap:content-version="1"/><EntitySet Name="Z_C_PurchaseDocBudgetOVP" EntityType="cds_z_purchasedocumentovp.Z_C_PurchaseDocBudgetOVPType" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_C_PurchaseDocsforApprovalOVP" EntityType="cds_z_purchasedocumentovp.Z_C_PurchaseDocsforApprovalOVPType"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_C_PURCHASEDOCUMENTFILTERSOVP" EntityType="cds_z_purchasedocumentovp.Z_C_PURCHASEDOCUMENTFILTERSOVPType"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_C_PurchaseDocumentOVP" EntityType="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentOVPType" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_C_PurchaseDocumentPendingOVP" EntityType="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentPendingOVPType"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_C_StatusVH" EntityType="cds_z_purchasedocumentovp.Z_C_StatusVHType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:searchable="true" sap:content-version="1"/></EntityContainer>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_z_purchasedocumentovp.Z_C_PURCHASEDOCUMENTFILTERSOVPType/Priority">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Value Help for Priority"/><PropertyValue Property="CollectionPath" String="Z_C_PriorityVH"/><PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Priority"/><PropertyValue Property="ValueListProperty" String="Priority"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PriorityText"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation><Annotation Term="Common.ValueListWithFixedValues"/></Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_z_purchasedocumentovp.Z_C_PURCHASEDOCUMENTFILTERSOVPType/Status">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Value Help for Status"/><PropertyValue Property="CollectionPath" String="Z_C_StatusVH"/><PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Status"/><PropertyValue Property="ValueListProperty" String="Status"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="StatusText"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation><Annotation Term="Common.ValueListWithFixedValues"/></Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_z_purchasedocumentovp.cds_z_purchasedocumentovp_Entities">
+				<Annotation Term="Aggregation.ApplySupported">
+					<Record>
+						<PropertyValue Property="Transformations">
+							<Collection>
+								<String>aggregate</String>
+								<String>groupby</String>
+								<String>filter</String>
+							</Collection>
+						</PropertyValue><PropertyValue Property="Rollup" EnumMember="None"/></Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="cds_z_purchasedocumentovp.cds_z_purchasedocumentovp_Entities/Z_C_PurchaseDocsforApprovalOVP">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="FilterExpressionRestrictions">
+							<Collection>
+								<Record><PropertyValue Property="Property" PropertyPath="Description"/><PropertyValue Property="AllowedExpressions" String="SearchExpression"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>Description</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="cds_z_purchasedocumentovp.cds_z_purchasedocumentovp_Entities/Z_C_PurchaseDocumentOVP">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="NonFilterableProperties">
+							<Collection>
+								<PropertyPath>ID</PropertyPath>
+								<PropertyPath>TotalNumberofDocuments</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="FilterExpressionRestrictions">
+							<Collection>
+								<Record><PropertyValue Property="Property" PropertyPath="Description"/><PropertyValue Property="AllowedExpressions" String="SearchExpression"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>ID</PropertyPath>
+								<PropertyPath>Description</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="cds_z_purchasedocumentovp.cds_z_purchasedocumentovp_Entities/Z_C_PurchaseDocumentPendingOVP">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="FilterExpressionRestrictions">
+							<Collection>
+								<Record><PropertyValue Property="Property" PropertyPath="PurchaseDocumentDescription"/><PropertyValue Property="AllowedExpressions" String="SearchExpression"/></Record>
+								<Record><PropertyValue Property="Property" PropertyPath="Description"/><PropertyValue Property="AllowedExpressions" String="SearchExpression"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>PurchaseDocumentDescription</PropertyPath>
+								<PropertyPath>Description</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentOVPType">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>PurchaseDocument</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocBudgetOVPType/PurchaseDocument"><Annotation Term="Common.SemanticObject" String="PurchasingDocument"/></Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocsforApprovalOVPType/PurchaseDocument"><Annotation Term="Common.SemanticObject" String="PurchasingDocument"/></Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentOVPType/PurchaseDocument"><Annotation Term="Common.SemanticObject" String="PurchasingDocument"/></Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/Z_UI_PURCHASEDOCOVP_V2/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/Z_UI_PURCHASEDOCOVP_V2/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

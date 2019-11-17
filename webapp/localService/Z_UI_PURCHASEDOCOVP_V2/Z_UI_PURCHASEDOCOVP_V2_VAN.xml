@@ -1,0 +1,137 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/></edmx:Reference>
+	<edmx:Reference
+		Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference Uri="../../../sap/z_ui_purchasedocovp_v2/$metadata"><edmx:Include Namespace="Z_UI_PURCHASEDOCOVP_V2" Alias="SAP"/></edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="z_ui_purchasedocovp_v2_van.v1">
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocBudgetOVPType">
+				<Annotation Term="UI.DataPoint" Qualifier="BudgetUtilization">
+					<Record><PropertyValue Property="Value" Path="BudgetUtilization"/><PropertyValue Property="Title" String="Overall Price"/><PropertyValue Property="MinimumValue" Decimal="0"/><PropertyValue Property="MaximumValue" Decimal="100"/>
+						<PropertyValue Property="ValueFormat">
+							<Record><PropertyValue Property="NumberOfFractionalDigits" Int="2"/></Record>
+						</PropertyValue>
+						<PropertyValue Property="CriticalityCalculation">
+							<Record><PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Minimize"/><PropertyValue Property="DeviationRangeHighValue" Decimal="100"/><PropertyValue Property="ToleranceRangeHighValue" Decimal="80"/></Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.DataPoint" Qualifier="crea_date_time">
+					<Record><PropertyValue Property="Value" Path="crea_date_time"/><PropertyValue Property="Title" String="Created On"/></Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataFieldForAnnotation"><PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#BudgetUtilization"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation"><PropertyValue Property="SemanticObject" String="PurchasingDocument"/><PropertyValue Property="Action" String="manage"/><PropertyValue Property="RequiresContext" Bool="false"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Value" Path="PurchasingOrganization"/></Record>
+						<Record Type="UI.DataFieldForAnnotation"><PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#crea_date_time"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>PurchaseDocument</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocsforApprovalOVPType">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation"><PropertyValue Property="Label" String="Document"/><PropertyValue Property="SemanticObject" String="PurchasingDocument"/><PropertyValue Property="Action" String="manage"/><PropertyValue Property="RequiresContext" Bool="false"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Description"/><PropertyValue Property="Value" Path="Description"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Total Price"/><PropertyValue Property="Value" Path="PriorityText"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Quantity"/><PropertyValue Property="Value" Path="crea_uname"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Total Price"/><PropertyValue Property="Value" Path="OverallPrice"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Quantity"/><PropertyValue Property="Value" Path="Approval"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PURCHASEDOCUMENTFILTERSOVPType/PurchaseDocument"><Annotation Term="UI.HiddenFilter"/></Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PURCHASEDOCUMENTFILTERSOVPType">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Priority</PropertyPath>
+						<PropertyPath>Status</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentOVPType/ID"><Annotation Term="UI.Hidden"/></Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentOVPType">
+				<Annotation Term="UI.Chart" Qualifier="ByPurchaseDocumentStatus">
+					<Record Type="UI.ChartDefinitionType"><PropertyValue Property="Title" String="Purchasing documents by Status"/><PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>StatusText</PropertyPath>
+								<PropertyPath>Status</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType"><PropertyValue Property="Dimension" PropertyPath="StatusText"/><PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/></Record>
+								<Record Type="UI.ChartDimensionAttributeType"><PropertyValue Property="Dimension" PropertyPath="Status"/><PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/></Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>TotalNumberofDocuments</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType"><PropertyValue Property="Measure" PropertyPath="TotalNumberofDocuments"/><PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/><PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#TotalNumberofDocuments"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="ByPurchaseDocumentPriority">
+					<Record Type="UI.ChartDefinitionType"><PropertyValue Property="Title" String="Purchasing documents by Priority"/><PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>PriorityText</PropertyPath>
+								<PropertyPath>Priority</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType"><PropertyValue Property="Dimension" PropertyPath="PriorityText"/><PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/></Record>
+								<Record Type="UI.ChartDimensionAttributeType"><PropertyValue Property="Dimension" PropertyPath="Priority"/><PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/></Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>TotalNumberofDocuments</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType"><PropertyValue Property="Measure" PropertyPath="TotalNumberofDocuments"/><PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/><PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#TotalNumberofDocuments"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.DataPoint" Qualifier="TotalNumberofDocuments">
+					<Record><PropertyValue Property="Value" Path="TotalNumberofDocuments"/><PropertyValue Property="Title" String="Outstanding Orders"/><PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Number"/></Record>
+				</Annotation>
+				<Annotation Term="UI.Identification">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation"><PropertyValue Property="Label" String="Display Purchasing Document Information"/><PropertyValue Property="SemanticObject" String="PurchasingDocument"/><PropertyValue Property="Action" String="manage"/><PropertyValue Property="RequiresContext" Bool="false"/></Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="cds_z_purchasedocumentovp.Z_C_PurchaseDocumentPendingOVPType">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Document"/><PropertyValue Property="Value" Path="PurchaseDocumentDescription"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Item Name"/><PropertyValue Property="Value" Path="Description"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Quantity"/><PropertyValue Property="Value" Path="Quantity"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Total Price"/><PropertyValue Property="Value" Path="OverallItemPrice"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Created By"/><PropertyValue Property="Value" Path="crea_uname"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Status"/><PropertyValue Property="Value" Path="StatusText"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Document"/><PropertyValue Property="Criticality" Path="Status"/><PropertyValue Property="CriticalityRepresentation" EnumMember="UI.CriticalityRepresentationType/WithoutIcon"/><PropertyValue Property="Value" Path="PriorityText"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+						<Record Type="UI.DataField"><PropertyValue Property="Label" String="Currency"/><PropertyValue Property="Value" Path="Currency"/><Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/></Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
